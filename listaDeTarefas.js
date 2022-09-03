@@ -1,39 +1,25 @@
-(() => {
-  const novaTarefa = document.querySelector("[data-form-button]");
+import BotaoConclui from "./components/ConcluirTarefa.js";
+import BotaoDeleta from "./components/DeletaTarefa.js";
 
-  const CriarTarefa = (event) => {
-    event.preventDefault();
+const novaTarefa = document.querySelector("[data-form-button]");
 
-    const input = document.querySelector("[data-form-input]");
-    const value = input.value;
-    console.log(value);
-    const list = document.querySelector("[data-list]");
-    const conteudo = `<p class = "content">${value}</p>`;
-    const tarefa = document.createElement("li");
+const CriarTarefa = (event) => {
+  event.preventDefault();
 
-    tarefa.classList.add("task");
-    tarefa.innerHTML = conteudo;
-    tarefa.appendChild(BotaoConclui());
-    list.appendChild(tarefa);
-    input.value = "";
-  };
+  const input = document.querySelector("[data-form-input]");
+  const value = input.value;
 
-  novaTarefa.addEventListener("click", CriarTarefa);
+  const list = document.querySelector("[data-list]");
+  const conteudo = `<p class = "content">${value}</p>`;
+  const tarefa = document.createElement("li");
 
-  const BotaoConclui = () => {
-    const btnConclui = document.createElement("button");
-    btnConclui.classList.add("check-button");
-    btnConclui.innerText = "concluir";
+  tarefa.classList.add("task");
+  tarefa.innerHTML = conteudo;
 
-    btnConclui.addEventListener("click", ConcluirTarefa);
+  tarefa.appendChild(BotaoConclui());
+  tarefa.appendChild(BotaoDeleta());
+  list.appendChild(tarefa);
+  input.value = "";
+};
 
-    return btnConclui;
-  };
-
-  const ConcluirTarefa = (event) => {
-    const btnClick = event.target;
-    const tarefaCompleta = btnClick.parentNode;
-
-    tarefaCompleta.classList.toggle("done");
-  };
-})();
+novaTarefa.addEventListener("click", CriarTarefa);
