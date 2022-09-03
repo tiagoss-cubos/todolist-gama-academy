@@ -7,7 +7,14 @@ const CriarTarefa = (event) => {
   event.preventDefault();
 
   const input = document.querySelector("[data-form-input]");
-  const value = input.value;
+  const calendar = document.querySelector("[data-form-date]");
+
+  const date = calendar.value;
+
+  const dateFormat = moment(date).format("L");
+
+  console.log(dateFormat);
+  const value = input.value.moment();
 
   const list = document.querySelector("[data-list]");
   const conteudo = `<p class = "content">${value}</p>`;
