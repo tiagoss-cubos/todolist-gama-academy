@@ -14,7 +14,7 @@ Nesse projeto o desafio era criar um toDo-List, utilizando conhecimentos básico
 
 ### Acesse o link abaixo para usá-lo
 
-- [ToDo-List](https://tiagoss-cubos.github.io/address-search-gama-academy/)
+- [ToDo-List](https://tiagoss-cubos.github.io/todolist-gama-academy/)
 
 ### Implementações futuras:
 
