@@ -3,21 +3,41 @@ import BotaoDeleta from "./components/DeletaTarefa.js";
 
 const novaTarefa = document.querySelector("[data-form-button]");
 
-const CriarTarefa = (event) => {
+let tarefas = [];
+
+const handleNovoItem = (event) => {
   event.preventDefault();
 
+  const tarefasLocalStorge = JSON.parse(localStorage.getItem("tarefas")) || [];
+  const list = document.querySelector("[data-list]");
   const input = document.querySelector("[data-form-input]");
-  const calendar = document.querySelector("[data-form-date]");
+  const value = input.value;
 
+  const calendar = document.querySelector("[data-form-date]");
   const date = calendar.value;
 
   const dateFormat = moment(date).format("L");
 
-  console.log(dateFormat);
-  const value = input.value.moment();
+  const dados = {
+    dateFormat,
+    value,
+  };
 
-  const list = document.querySelector("[data-list]");
-  const conteudo = `<p class = "content">${value}</p>`;
+  const tarefaCriada = CriarTarefa(dados);
+
+  tarefas.push(dados);
+
+  localStorage.setItem("tarefas", JSON.stringify(tarefas));
+
+  const tarefasAtualizadas = [...tarefas, tarefasLocalStorge];
+  console.log(tarefasAtualizadas);
+
+  list.appendChild(tarefaCriada);
+  input.value = "";
+};
+
+const CriarTarefa = ({ dateFormat, value }) => {
+  const conteudo = `<p class = "content">${dateFormat} * ${value}</p>`;
   const tarefa = document.createElement("li");
 
   tarefa.classList.add("task");
@@ -25,8 +45,8 @@ const CriarTarefa = (event) => {
 
   tarefa.appendChild(BotaoConclui());
   tarefa.appendChild(BotaoDeleta());
-  list.appendChild(tarefa);
-  input.value = "";
+
+  return tarefa;
 };
 
-novaTarefa.addEventListener("click", CriarTarefa);
+novaTarefa.addEventListener("click", handleNovoItem);
